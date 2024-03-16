@@ -93,6 +93,23 @@ int main() {
         f2[0] = stoi(fraction2.substr(0, fraction2.find('/')));
         f2[1] = stoi(fraction2.substr(fraction2.find('/') + 1));
 
+        if (fraction1.find('/') == string::npos)
+            fraction1 += "/1";
+        if (fraction2.find('/') == string::npos)
+            fraction2 += "/1";
+
+        // using regex check for fraction patterns in each string
+        if (!regex_match(fraction1, regex("[-+]?[0-9]+/[-+]?[1-9]+")))
+        {
+            cout << "Invalid operation. Try again";
+            break;
+        }
+        else if (!regex_match(fraction2, regex("[-+]?[0-9]+/[-+]?[1-9]+")))
+        {
+            cout << "Invalid operation. Try again";
+            break;
+        }
+
 
 
         // according to calculation symbol, switch to function
