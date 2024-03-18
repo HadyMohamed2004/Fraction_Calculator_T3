@@ -1,3 +1,29 @@
+/*
+ * File: CS112_A2_T3_SectionNum_20230455_20230382_20230603.cpp
+ *
+ * Purpose: Fraction Calculator (Summation, Subtraction, Multiplication and Division)
+ *
+ * Author:      Hady Mohammed Meawad Mohammed       20230455        meawad.hady@gmail.com
+ *              Marwan Hussein Mohamed Mohamed      20230382        marawanlabana649@gmail.com
+ *              Mahmoud Abdelaziz Mahmoud           20230603        20230603@stud.fci-cu.edu.eg
+ *
+ * Lab Number:  S19, S20
+ * TA:          Eng. Yomna Fathy
+ *
+ * Emails:      20230455:   meawad.hady@gmail.com
+ *              20230382:   marawanlabana649@gmail.com
+ *              20230603:   20230603@stud.fci-cu.edu.eg
+ *
+ *
+ * ID1: 20230455 – Input Validation, Program Switch Case, Simplification Function, Division and Multiplication
+ *
+ * ID2: 20230382 – Improper Fraction Validation, Subtraction, Summation
+ *
+ * ID3: 20230603 – the part s/he did
+ *
+*/
+
+
 #include <iostream>
 #include <string>
 #include <regex>
@@ -9,7 +35,6 @@ void simplify(int c[2]) {
     int sign = (c[0] < 0) ? -1 : 1;
 
     c[0] *= (c[0] < 0) ? -1 : 1;
-
 
     if (c[0] == c[1]) {
         cout << "= " << 1 * sign << endl;
@@ -26,14 +51,12 @@ void simplify(int c[2]) {
         cout << "= ";
         if (c[0] == c[1]) {
             cout << c[0] / c[1] << endl;
-        } else if (c[1] == 1) {
-            cout << c[0] << endl;
+        } else if (c[1] == 1 || c[0] == 0) {
+            cout << c[0] * sign << endl;
         } else {
             cout << c[0] * sign << "/" << c[1] << endl;
         }
     }
-
-
 }
 
 
@@ -72,18 +95,18 @@ int main() {
     int f1[2], f2[2];
     char symbol;
     string fraction1, fraction2;
-    string input_, input;
+
     while (true) {
-        cout << "enter fractions to calculate or exit:";
+        string input_ = "", input = "";
+        cout << "Enter fractions to calculate or exit:";
         getline(cin, input_);
 
         for (char x: input_) {
             input += tolower(x);
         }
 
-
         if (input == "exit") {
-            cout << "thanks" << endl;
+            cout << "Thank you for using our Fraction Calculator" << endl;
             break;
         }
 
@@ -92,6 +115,9 @@ int main() {
         f_space = input.find(" ", f_space + 1);
         symbol = input[f_space - 1];
         fraction2 = input.substr(f_space + 1);
+
+        string symbols = "+-/*";
+
 
         if (fraction1.find('/') == string::npos)
             fraction1 += "/1";
@@ -108,12 +134,17 @@ int main() {
 
         // using regex check for fraction patterns in each string
         if (!regex_match(fraction1, regex("[-+]?[0-9]+/[-+]?[1-9]+"))) {
-            cout << "Invalid operation. Try again";
-            break;
+            cout << "Invalid operation. Try again" << endl;
+            continue;
         } else if (!regex_match(fraction2, regex("[-+]?[0-9]+/[-+]?[1-9]+"))) {
-            cout << "Invalid operation. Try again";
-            break;
+            cout << "Invalid operation. Try again" << endl;
+            continue;
+        } else if (symbols.find(symbol) == string::npos) {
+            cout << "Invalid operand" << endl;
+            continue;
         }
+
+
 
 
 
