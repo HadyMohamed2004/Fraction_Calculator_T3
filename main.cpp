@@ -19,6 +19,10 @@
  * ID2:         20230382 – Improper Fraction Validation, Subtraction, Summation
  *
  * ID3:         20230603 – Division function, Algorithm and Pseudocode
+ *
+ * Algorithm:   https://drive.google.com/drive/folders/1URdyDh9vbw2zpuUzoEvHvnBzi_S7382c?usp=sharing
+ *
+ * GitHub:      https://github.com/HadyMohamed2004/Fraction_Calculator_T3
 */
 
 
@@ -29,29 +33,38 @@
 using namespace std;
 
 
+// Function to simplify a fraction represented by an integer array of size 2
 void simplify(int c[2]) {
+    // Determine the sign of the fraction
     int sign = (c[0] < 0) ? -1 : 1;
 
+    // Ensure the numerator is positive
     c[0] *= (c[0] < 0) ? -1 : 1;
 
+    // Check if the numerator and denominator are equal
     if (c[0] == c[1]) {
-        cout << "= " << 1 * sign << endl;
+        cout << "= " << 1 * sign << endl; // Print 1
     } else {
 
+        // Find the smallest divisor to simplify the fraction
         int divisor = (c[0] < c[1]) ? c[0] : c[1];
         for (int i = divisor; i > 0; i--) {
+            // Check if both numerator and denominator are divisible by the current divisor
             if (c[0] % i == 0 && c[1] % i == 0) {
+                // Simplify the fraction by dividing both numerator and denominator by the divisor
                 c[0] /= i;
                 c[1] /= i;
+                // Exit the loop after finding the greatest common divisor
                 break;
             }
         }
+        // Output the simplified fraction
         cout << "= ";
-        if (c[0] == c[1]) {
-            cout << c[0] / c[1] << endl;
-        } else if (c[1] == 1 || c[0] == 0) {
+        if (c[1] == 1 || c[0] == 0) {
+            // Output the numerator with sign if the denominator is 1 or numerator is 0
             cout << c[0] * sign << endl;
         } else {
+            // Output the simplified fraction in the form of numerator/denominator with sign
             cout << c[0] * sign << "/" << c[1] << endl;
         }
     }
@@ -66,35 +79,55 @@ void simplify(int c[2]) {
  * b[1]: second denominator
 */
 
+// Function to multiply two fractions represented by integer arrays of size 2
 void multiply(int a[2], int b[2]) {
+    // Declare an array to store the result of multiplication
     int c[2];
-    c[0] = a[0] * b[0];
-    c[1] = a[1] * b[1];
+    // Multiply numerators and denominators separately
+    c[0] = a[0] * b[0]; // Multiply numerators
+    c[1] = a[1] * b[1]; // Multiply denominators
 
+    // Simplify the resulting fraction
     simplify(c);
-
 }
 
+// Function to divide two fractions represented by integer arrays of size 2
 void divide(int a[2], int b[2]) {
+    // Declare an array to store the result of division
     int c[2];  // the array of result fraction
+    // Multiply the first numerator by the second denominator to get the numerator of the result
     c[1] = a[1] * b[0];
+    // Multiply the first denominator by the second numerator to get the denominator of the result
     c[0] = a[0] * b[1];
+    // Simplify the resulting fraction
     simplify(c);
 }
 
+// Function to add two fractions represented by integer arrays of size 2
 void sum(int a[2], int b[2]) {
+    // Declare an array to store the result of addition
     int c[2];
+    // Calculate the numerator of the result by cross-multiplying and adding
     c[0] = a[0] * b[1] + a[1] * b[0];
+    // Calculate the denominator of the result by multiplying the denominators
     c[1] = a[1] * b[1];
+    // Simplify the resulting fraction
     simplify(c);
 }
 
+
+// Function to subtract two fractions represented by integer arrays of size 2
 void sub(int a[2], int b[2]) {
+    // Declare an array to store the result of subtraction
     int c[2];
+    // Calculate the numerator of the result by cross-multiplying and subtracting
     c[0] = a[0] * b[1] - a[1] * b[0];
+    // Calculate the denominator of the result by multiplying the denominators
     c[1] = a[1] * b[1];
+    // Simplify the resulting fraction
     simplify(c);
 }
+
 
 
 int main() {
