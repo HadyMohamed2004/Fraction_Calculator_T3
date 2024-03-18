@@ -1,5 +1,5 @@
 /*
- * File:        CS112_A2_T3_SectionNum_20230455_20230382_20230603.cpp
+ * File:        CS112_A2_T3_S19,S20_20230455_20230382_20230603.cpp
  *
  * Purpose:     Fraction Calculator (Summation, Subtraction, Multiplication and Division)
  *
@@ -14,11 +14,11 @@
  *              20230382:   marawanlabana649@gmail.com
  *              20230603:   20230603@stud.fci-cu.edu.eg
  *
- * ID1:         20230455 â€“ Input Validation, Program Switch Case, Simplification Function, and Multiplication
+ * ID1:         20230455 – Input Validation, Program Switch Case, Simplification Function, and Multiplication
  *
- * ID2:         20230382 â€“ Improper Fraction Validation, Subtraction, Summation
+ * ID2:         20230382 – Improper Fraction Validation, Subtraction, Summation
  *
- * ID3:         20230603 â€“ Division function, Algorithm and Pseudocode
+ * ID3:         20230603 – Division function, Algorithm and Pseudocode
  *
  * Algorithm:   https://drive.google.com/drive/folders/1URdyDh9vbw2zpuUzoEvHvnBzi_S7382c?usp=sharing
  *
@@ -37,15 +37,13 @@ using namespace std;
 void simplify(int c[2]) {
     // Determine the sign of the fraction
     int sign = (c[0] < 0) ? -1 : 1;
-    int sign_d = (c[1] < 0) ? -1 : 1;
 
     // Ensure the numerator is positive
     c[0] *= (c[0] < 0) ? -1 : 1;
-    c[1] *= (c[1] < 0) ? -1 : 1;
 
     // Check if the numerator and denominator are equal
     if (c[0] == c[1]) {
-        cout << "= " << 1 * sign * sign_d << endl; // Print 1
+        cout << "= " << 1 * sign << endl; // Print 1
     } else {
 
         // Find the smallest divisor to simplify the fraction
@@ -67,7 +65,7 @@ void simplify(int c[2]) {
             cout << c[0] * sign << endl;
         } else {
             // Output the simplified fraction in the form of numerator/denominator with sign
-            cout << c[0] * sign * sign_d << "/" << c[1] << endl;
+            cout << c[0] * sign << "/" << c[1] << endl;
         }
     }
 }
@@ -131,6 +129,7 @@ void sub(int a[2], int b[2]) {
 }
 
 
+
 int main() {
     // Declare variables for two fractions, a symbol, and input strings
     int f1[2], f2[2];
@@ -149,7 +148,7 @@ int main() {
 
 
         cin >> fraction1;
-        for (char &x: fraction1) {
+        for (char &x:fraction1){
             x = tolower(x);
         }
         if (fraction1 == "exit") {
