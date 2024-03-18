@@ -34,7 +34,7 @@ using namespace std;
 
 
 // Function to simplify a fraction represented by an integer array of size 2
-void simplify(int c[2]) {
+void simplify(long long c[2]) {
     // Determine the sign of the fraction
     int sign = (c[0] < 0) ? -1 : 1;
     int sign_d = (c[1] < 0) ? -1 : 1;
@@ -82,9 +82,9 @@ void simplify(int c[2]) {
 */
 
 // Function to multiply two fractions represented by integer arrays of size 2
-void multiply(int a[2], int b[2]) {
+void multiply(long long a[2], long long b[2]) {
     // Declare an array to store the result of multiplication
-    int c[2];
+    long long c[2];
     // Multiply numerators and denominators separately
     c[0] = a[0] * b[0]; // Multiply numerators
     c[1] = a[1] * b[1]; // Multiply denominators
@@ -94,21 +94,28 @@ void multiply(int a[2], int b[2]) {
 }
 
 // Function to divide two fractions represented by integer arrays of size 2
-void divide(int a[2], int b[2]) {
+void divide(long long a[2], long long b[2]) {
     // Declare an array to store the result of division
-    int c[2];  // the array of result fraction
+    long long c[2];  // the array of result fraction
+
     // Multiply the first numerator by the second denominator to get the numerator of the result
     c[1] = a[1] * b[0];
     // Multiply the first denominator by the second numerator to get the denominator of the result
     c[0] = a[0] * b[1];
-    // Simplify the resulting fraction
-    simplify(c);
+
+    // Check if denominator is "0" Return Math Error
+    if (c[1] == 0) {
+        cout << "Math Error!" << endl;
+        // Simplify the resulting fraction
+    } else {
+        simplify(c);
+    }
 }
 
 // Function to add two fractions represented by integer arrays of size 2
-void sum(int a[2], int b[2]) {
+void sum(long long a[2], long long b[2]) {
     // Declare an array to store the result of addition
-    int c[2];
+    long long c[2];
     // Calculate the numerator of the result by cross-multiplying and adding
     c[0] = a[0] * b[1] + a[1] * b[0];
     // Calculate the denominator of the result by multiplying the denominators
@@ -119,9 +126,9 @@ void sum(int a[2], int b[2]) {
 
 
 // Function to subtract two fractions represented by integer arrays of size 2
-void sub(int a[2], int b[2]) {
+void sub(long long a[2], long long b[2]) {
     // Declare an array to store the result of subtraction
-    int c[2];
+    long long c[2];
     // Calculate the numerator of the result by cross-multiplying and subtracting
     c[0] = a[0] * b[1] - a[1] * b[0];
     // Calculate the denominator of the result by multiplying the denominators
@@ -133,7 +140,7 @@ void sub(int a[2], int b[2]) {
 
 int main() {
     // Declare variables for two fractions, a symbol, and input strings
-    int f1[2], f2[2];
+    long long f1[2], f2[2];
     char symbol;
     string fraction1, fraction2;
 
@@ -169,10 +176,10 @@ int main() {
         string symbols = "+-/*";
 
         // Using regex check for fraction patterns in each string to Validate the format of input fractions using regular expressions
-        if (!regex_match(fraction1, regex("[-+]?[0-9]+/[-+]?[1-9]+"))) {        // Check first fraction format
+        if (!regex_match(fraction1, regex("[-+]?[0-9]+/[-+]?[0]?[1-9]+"))) {        // Check first fraction format
             cout << "Invalid operation. Try again" << endl;
             continue;
-        } else if (!regex_match(fraction2, regex("[-+]?[0-9]+/[-+]?[1-9]+"))) { // Check Second fraction format
+        } else if (!regex_match(fraction2, regex("[-+]?[0-9]+/[-+]?[0]?[1-9]+"))) { // Check Second fraction format
             cout << "Invalid operation. Try again" << endl;
             continue;
         } else if (symbols.find(symbol) ==
