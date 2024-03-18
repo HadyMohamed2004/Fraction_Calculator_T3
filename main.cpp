@@ -108,30 +108,21 @@ int main() {
 
     // Main loop for calculator operations
     while (true) {
-        string input_ = "", input = ""; // Reset input strings each iteration
 
         // Prompt user for input fraction format
         cout << "Expressions must be written like this: a/b [-+*/] c/d" << endl;
         cout << "Enter fractions to calculate or exit:";
-        getline(cin, input_);
 
-        // Convert input to lowercase for case insensitivity
-        for (char x: input_) {
-            input += tolower(x);
+
+        cin >> fraction1;
+        for (char &x:fraction1){
+            x = tolower(x);
         }
-
-        // Check if user wants to exit
-        if (input == "exit") {
+        if (fraction1 == "exit") {
             cout << "Thank you for using our Fraction Calculator" << endl;
             break;
         }
-
-        // Find space to separate fractions and symbol
-        int f_space = input.find(" ");
-        fraction1 = input.substr(0, f_space);
-        f_space = input.find(" ", f_space + 1);
-        symbol = input[f_space - 1];
-        fraction2 = input.substr(f_space + 1);
+        cin >> symbol >> fraction2;
 
 
         // Ensure fractions have denominators
@@ -150,7 +141,8 @@ int main() {
         } else if (!regex_match(fraction2, regex("[-+]?[0-9]+/[-+]?[1-9]+"))) { // Check Second fraction format
             cout << "Invalid operation. Try again" << endl;
             continue;
-        } else if (symbols.find(symbol) == string::npos) {      // if entered symbol isn't valid, Re-prompt user to enter the expression correctly
+        } else if (symbols.find(symbol) ==
+                   string::npos) {      // if entered symbol isn't valid, Re-prompt user to enter the expression correctly
             cout << "Invalid operand" << endl;
             continue;
         }
