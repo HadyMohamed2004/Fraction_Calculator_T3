@@ -50,7 +50,7 @@ void divide(int a[2], int b[2]) {
     int c[2];  // the array of result fraction
     c[1] = a[1] * b[0];
     c[0] = a[0] * b[1];
-    cout << "= " << c[0] << "/" << c[1] << endl;
+    simplify(c);
 }
 
 void sum(int a[2], int b[2]) {
@@ -93,16 +93,18 @@ int main() {
         symbol = input[f_space - 1];
         fraction2 = input.substr(f_space + 1);
 
+        if (fraction1.find('/') == string::npos)
+            fraction1 += "/1";
+        if (fraction2.find('/') == string::npos)
+            fraction2 += "/1";
+
         // convert strings to fraction, each fraction in an array, where f1[0] is the nominator and f1[1] is the denominator.
         f1[0] = stoi(fraction1.substr(0, fraction1.find('/')));
         f1[1] = stoi(fraction1.substr(fraction1.find('/') + 1));
         f2[0] = stoi(fraction2.substr(0, fraction2.find('/')));
         f2[1] = stoi(fraction2.substr(fraction2.find('/') + 1));
 
-        if (fraction1.find('/') == string::npos)
-            fraction1 += "/1";
-        if (fraction2.find('/') == string::npos)
-            fraction2 += "/1";
+
 
         // using regex check for fraction patterns in each string
         if (!regex_match(fraction1, regex("[-+]?[0-9]+/[-+]?[1-9]+"))) {
